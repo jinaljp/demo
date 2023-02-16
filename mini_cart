@@ -1,0 +1,288 @@
+{%- assign collection_product = collections[section.settings.collection] -%}
+<div class="cart-slider">
+  <div class="cart-heder">
+    <h3 class="cart-title">
+      Your cart (
+        <span class="boost-pfs-count-item">0</span>
+        <span class="boost-pfs-count-item-label">item</span>
+      )
+    </h3>
+    <div class="cart-drawer-close-btn">X</div>
+  </div>
+  <div class="minicart-content">
+    <div class="cart_items"></div>
+    <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
+      <div id="CartCount" class="site-header__cart-count{% if cart.item_count == 0 %} hide{% endif %} critical-hidden" data-cart-count-bubble>
+        <span class="icon__fallback-text medium-up--hide">{{'layout.cart.items_count' | t: count: cart.item_count }}</span>
+      </div>
+  </div>
+  <div class="select-collection">
+    <div class="product-list">
+      {%- for product in collection_product.products-%}
+      <div class="pro-info" data-index="{{ forloop.index }}">
+       <div class="pro-img">
+         <h4 class="collection-title">Your Selected Current Image</h4>
+         <img src="{{ product.featured_image | img_url:'master'}}" class="product-img" img_index="index_{{ forloop.rindex0 }}" >
+       </div>
+        <div class="product-info">
+            <h6 class="pro-title">{{product.title}}</h6>
+            <h6 class="pro-pric">${{product.price}}</h6>
+         </div>
+      </div>
+      {%- endfor -%}
+    </div>
+  </div>
+  <div class="button_cover">
+    <div class="cart_button">
+      <a href="/cart" class="button addtocart-btu">Go To Cart</a>
+    </div>
+    <div class="checkout_button">
+      <a href="/checkout" class="button checkout-btu">CheckOut</a>
+    </div>
+  </div>
+  <div class="total"></div>
+</div>
+<style>
+.cart_caver_main {
+    width: 100%;
+    display: flex;
+}
+span.icon__fallback-text {
+    display: none;
+}
+.image_cover {
+    height: 0%;
+    width: 100px;
+    margin: 7px;
+}
+a.site-header__icon.site-header__cart {
+    text-decoration: none;
+}
+.title {
+    color: rgb(49 55 61);
+    font-size: smaller;
+    width: initial;
+    font-style: inherit;
+    text-align: inherit;
+    margin: unset;
+}
+.quantity {
+    width: 56px;
+}
+.cart-slider {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 300px;
+    z-index: 11111;
+    background: #fff;
+    max-height: 100%;
+    overflow-y: scroll;
+}
+.minicart-content {
+    margin-top: 55px;
+}
+button.addtocart-btu {
+    height: 44px;
+    width: 230px;
+    font-size: 19px;
+    font-style: 700%;
+    FONT-WEIGHT: 600;
+    border-radius: 10px;
+    margin-bottom: 3px;
+}
+.button {
+    position: fixed;
+    bottom: 0;
+    display: block;
+}
+input.quantity-input {
+    height: 47px;
+    width: 98px;
+    border: -2px solid #13424c;
+}
+svg.cart-icon-bubble {
+    top: 40px;
+    right: 93px;
+}
+a.button.checkout-btu {
+    right: 17px;
+    text-align: center;
+    background: hsl(169deg 80% 46%);
+    padding-top: 15px;
+    margin: 0 25px 11px 0;
+}
+a.button.addtocart-btu {
+    text-align: center;
+    background: hsl(169deg 80% 46%);
+    padding-top: 15px;
+    margin: 0 0 10px 25px;
+}
+.cart-slider {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 350px;
+    z-index: 11111;
+    background: #fff;
+    max-height: 100%;
+    overflow-y: scroll;
+}
+.pro-info {
+    top: 35px;
+}
+.cart-heder {
+    display: flex;
+    width: 100%;
+}
+h3.cart-title {
+    width: 90%;
+    text-align: -webkit-center;
+}
+.cart-drawer-close-btn {
+    margin: auto;
+    width: 10%;
+}
+img.cart-image {
+    width: inherit;
+}
+.data {
+    width: 65 %;
+    margin: 0px 33px 15px 3px;
+}
+.cart_title_qut {
+    margin: 3px;
+    padding: 0px;
+    width: 153px;
+}
+.quantity {
+    width: 56px;
+}
+button.add-to-cart {
+    width: 183px;
+    height: 47px;
+    background-color: rgb(225 180 226);
+    color: rgb(248 250 253);
+    border: rgb(240 248 255);
+    margin: 3px 0px;
+}
+</style>
+<!-- <script>
+
+   $('.cart-icon-bubble').on('click',function(e){
+   $('.cart-slider').show();
+   $('.cart-drawer-close-btn').click('click',function(e){
+     $('.cart-slider').hide();
+    });
+  })
+  var length = $('.product-list .pro-info').length;
+  console.log(length);
+  var num =  Math.floor(Math.random() * (length - 1 + 1)) + 1;
+  console.log(num, 'num');
+  $('.product-list .pro-info').hide();
+  $('.product-list .pro-info[data-index="'+num+'"]').show();
+ 
+</script> -->
+{% schema %}
+  {
+    "name": "Maini Cart Drawer",
+    "class": "Maini Cart Drawer",
+    "settings": [
+      {
+        "type":"collection",
+        "id":"collection",
+        "label":"Collection"
+      }
+    ],
+    "presets":[
+      {
+        "name":"maini_cart"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+
+<script>
+  function get_cart(){
+    console.log('call mini cart');
+        $.ajax({
+        type: 'GET',
+        url: '/cart.js',
+        dataType: 'json',
+        success: function(cart) {
+        var count = cart.item_count;
+        $('.cart-heder .boost-pfs-count-item').html(count)
+        $('.cart-slider .cart_items').html('')
+        $(cart.items).each(function(index,data){
+          console.log(data);
+           var price = (data.price/100);
+           var image = data.image;
+           var quantity = data.quantity;
+           var title = data.title;
+           var obj = '<div class="cart-item" data-id="'+data.id+'">';
+            obj += '<div class="cart_caver_main">'
+            obj += '<div class="image_cover"><img class="cart-image" src="'+image+' "></div>';
+            obj += '<div class="cart_title_qut">'
+            obj += '<div class="data"><h3 class="title">'+title+'</h3></div>';
+            obj += '<div class="quantity"><input type="number" class="quantity-input" value="'+quantity+'"/></div></div>';
+            obj += '<div class="price"><h3 class="price">'+price+'</h3></div></div>'
+            $('.cart-slider .cart_items').append(obj);
+          })
+      }  
+    });
+  };
+$('.add-to-cart').on('click',function(e){
+  get_cart();
+  var  quantity = parseInt($('.quantity').find('input').val());
+  console.log('quantity',quantity);
+  var id =$(this).attr('data_id');  
+  console.log('hello',id);
+   $.ajax({
+        type: 'POST',
+        url: '/cart/add.js',
+        data: {id:id,quantity:quantity},
+        dataType: 'json',
+        success: function(result) {
+      $('.maini_cart_icon').click();
+       }  
+    });
+});
+$('.maini_cart_icon').on('click',function(e){
+    get_cart();
+    $('.cart-slider').show();
+    $('.cart-drawer-close-btn').click('click',function(e){
+      $('.cart-slider').hide();
+    });
+});
+  var length = $('.product-list .pro-info').length;
+  console.log(length);
+  var num =  Math.floor(Math.random() * (length - 1 + 1)) + 1;
+  console.log(num, 'num');
+  $('.product-list .pro-info').hide();
+  $('.product-list .pro-info[data-index="'+num+'"]').show();
+
+$(document).on('change','.cart_items .cart-item .quantity .quantity-input',function(e){
+  console.log('consoles');
+  var id = $(this).parents('.cart-item').data('id');
+  var qtys = parseInt($(this).val());
+  $.ajax({
+        type: 'POST',
+        url: '/cart/add.js',
+        data: {id:id,quantity:qtys},
+        dataType: 'json',
+        success: function(result) {
+        get_cart();
+       }  
+    });
+})
+</script>
